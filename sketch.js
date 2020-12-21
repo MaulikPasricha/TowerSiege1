@@ -1,109 +1,147 @@
+
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
-const Constraint = Matter.Constraint;
+const Body = Matter.Body;
+const Constraint=Matter.Constraint;
 
-var dground, tree,treeimg;
-var boy, boyimg;
-var stones;
-var mango1, mango2, mango3, mango4, mango5, mango6, maango7, mango8, mango9, mango10;
 
-function preload(){
-	treeimg=loadImage("tree.png");
-	boyimg=loadImage("boy.png");
-}
+//const Constraint=Matter.Constraint
+var  circle1,ground;	
+var world,sling;
+
 
 function setup() {
-	createCanvas(1000, 650);
+	createCanvas(1200, 600);
+	rectMode(CENTER);
+
 
 	engine = Engine.create();
 	world = engine.world;
+	
+ // ground=createSprite(400,400,230,20)
+ground=new Ground(400,400,230,20)
+ 	World.add(world, ground);
 
-	dground=new Ground();
-	stones=new Stone(100,460,23);
-	mango1=new Mango(600,290,34);
-	mango2=new Mango(855,325,35);
-	mango3=new Mango(670,260,35);
-	mango4=new Mango(730,200,35);
-	mango5=new Mango(710,320,36);
-	mango6=new Mango(780,250,35);
-	mango7=new Mango(825,170,33);
-	mango8=new Mango(880,260,35);
-	mango9=new Mango(940,220,35);
-	mango10=new Mango(980,305,35);
+ 	box1=new Box(310,370,30,40)
 
-	attach=new Throw(stones.body,{x:100,y:465});
+box2=new Box(340,370,30,40)
+box3=new Box(370,370,30,40)
+box4=new Box(400,370,30,40)
+box5=new Box(430,370,30,40)
+box6=new Box(460,370,30,40)
+box7=new Box(490,370,30,40)
+box8=new Box(340,330,30,40)
+box9=new Box(370,330,30,40)
+box10=new Box(400,330,30,40)
+box11=new Box(430,330,30,40)
+box12=new Box(460,330,30,40)
+box13=new Box(370,290,30,40)
+box14=new Box(400,290,30,40)
+box15=new Box(430,290,30,40)
+box16=new Box(400,250,30,40)
+circle1=new Circle(100,200,20)
+//slingShot =new SlingShot (circle1.body,{x:130,y:200})
 
-	tree=createSprite(775,368);
-	tree.addImage(treeimg);
-	tree.scale=0.42;
+	//paper1.body=Bodies.circle(height/6, 200, 20, option1)
+	//paper1=new Paper(height/6,200,20,option1);
+	//World.add(world, paper1);
+	
+	
+	sling =new SlingShot (circle1.body,{x:130,y:200})
+	// Online Code
+	//dustbinObj=new dustbin(1200,650);
+	//paperObject=new paper(200,450,40);
+	//groundObject=new ground(width/2,670,width,20);
+	//Create a Ground
 
-	boy=createSprite(160,550);
-	boy.addImage(boyimg);
-	boy.scale=0.125;
-
-	Engine.run(engine);
+Engine.run(engine);
+	
   
 }
+
 
 function draw() {
-  rectMode(CENTER);
-  background("grey");
-
-  fill("black");
-  textSize(18);
+	background("grey");
+Engine.update(engine);
+  //rectMode(CENTER);
   
 
-  detectCollision(stones,mango1);
-  detectCollision(stones,mango2);
-  detectCollision(stones,mango3);
-  detectCollision(stones,mango4);
-  detectCollision(stones,mango5);
-  detectCollision(stones,mango6);
-  detectCollision(stones,mango7);
-  detectCollision(stones,mango8);
-  detectCollision(stones,mango9);
-  detectCollision(stones,mango10);
 
+ 
+ // ellipse(paper1.position.x,paper1.position.y, 20,20);
+ //launcher1.display();
+
+  //dustbinObj.display();
+  //paperObject.display();
+  //groundObject.display();
+ // ground=createSprite(400,400,230,20)
+  circle1.display();
+  sling.display();
+  box1.display();
+  box2.display();
+  box3.display();
+  box4.display();
+  box5.display();
+  box6.display();
+  box7.display();
+  box8.display();
+  box9.display();
+  box10.display();
+  box11.display();
+  box12.display();
+  box13.display();
+  box14.display();
+  box15.display();
+  box16.display();
+  ground.display();
+  //circle1.display();
   drawSprites();
 
-  stones.display();
-  dground.display();
-  mango1.display();
-  mango2.display();
-  mango3.display();
-  mango4.display();
-  mango5.display();
-  mango6.display();
-  mango7.display();
-  mango8.display();
-  mango9.display();
-  mango10.display();
-
-}
-
-function mouseDragged(){
-	Matter.Body.setPosition(stones.body,{x:mouseX,y:mouseY});
-}
-
-function mouseReleased(){
-	attach.fly();
-}
-
-function detectCollision(lstones,lmango){
-
-	if(lstones.body.position.x- lmango.body.position.x <lmango.diametre + lstones.diametre
-		&& lmango.body.position.x - lstones.body.position.x  < lmango.diametre + lstones.diametre
-		&&lstones.body.position.y -lmango.body.position.y < lmango.diametre + lstones.diametre
-		&& lmango.body.position.y - lstones.body.position.y < lmango.diametre + lstones.diametre){
-		Matter.Body.setStatic(lmango.body,false);
-	}
-
-}
  
-function keyPressed(){
-	if(keyCode===32){
-		Matter.Body.setPosition(stones.body,{x:100,y:465});
-		attach.Launch(stones.body);
-	}
 }
+
+function keyPressed() {
+
+
+  	if (keyCode === UP_ARROW) {
+
+    	Matter.Body.applyForce(circle1,circle1.position,{x:55,y:-75});
+    
+  	}
+
+
+	
+	else if (keyCode === LEFT_ARROW) {
+  
+		boxleftSprite.x=boxleftSprite.x-20;  
+		boxrightSprite.x=boxrightSprite.x-20;
+		boxBase.x=boxBase.x-20;
+	  translation={x:-20,y:0}
+	  Matter.Body.translate(boxRightBody, translation)
+	  Matter.Body.translate(boxLeftBody, translation)
+	  Matter.Body.translate(boxBase, translation)
+	  
+   
+ 	} else if (keyCode === RIGHT_ARROW) {
+		boxleftSprite.x=boxleftSprite.x+20;  
+		boxrightSprite.x=boxrightSprite.x+20;
+		boxBase.x=boxBase.x+20;
+		translation={x:20,y:0}
+	  Matter.Body.translate(boxRightBody, translation)
+	  Matter.Body.translate(boxLeftBody, translation)
+	  Matter.Body.translate(boxBase, translation)
+	}
+  }
+	 
+   
+  function mouseDragged(){
+	Matter.Body.setPosition(circle1.body,{x:mouseX,y:mouseY})
+	
+	
+	}
+ 	function mouseReleased (){
+	sling.fly();
+	
+  }
+
